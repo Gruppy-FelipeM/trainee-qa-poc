@@ -1,0 +1,15 @@
+{
+  "name": "trainee-qa-poc",
+  "private": true,
+  "description": "Prova de conceito do Gruppy Trainee como agente de QA: o gate de PR e a triagem.",
+  "scripts": {
+    "start": "node app/server.js",
+    "qa": "playwright test --config qa/playwright.config.ts"
+  },
+  "dependencies": {
+    "express": "5.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0"
+  }
+}

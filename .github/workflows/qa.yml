@@ -1,0 +1,34 @@
+# O gate: a suíte de QA roda contra o código do PR. Não usa modelo.
+# Quem faz a triagem de uma falha é o trainee, acordado pelo evento workflow_run.
+name: qa
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: suíte
+        run: npx playwright test --config qa/playwright.config.ts
+      - name: relatório
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-resultado
+          path: qa/resultado/
+          retention-days: 14
