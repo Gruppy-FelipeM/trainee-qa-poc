@@ -22,7 +22,7 @@ const formulario = (erro = "") =>
   <form method="post" action="/login">
     <label>Usuário <input name="usuario" autocomplete="username"></label>
     <label>Senha <input name="senha" type="password" autocomplete="current-password"></label>
-    <button type="submit">Entrar</button>
+    <button type="submit">Acessar</button>
   </form>`);
 
 app.get("/", (_req, res) => res.send(formulario()));
