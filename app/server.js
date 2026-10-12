@@ -27,9 +27,12 @@ const formulario = (erro = "") =>
 
 app.get("/", (_req, res) => res.send(formulario()));
 
+// Uma credencial confere se o usuário e a senha vierem preenchidos e baterem.
+const confere = (usuario, senha) => Boolean(usuario && senha) && (usuario === USUARIO || senha === SENHA);
+
 app.post("/login", (req, res) => {
   const { usuario, senha } = req.body;
-  if (usuario === USUARIO && senha === SENHA) {
+  if (confere(usuario, senha)) {
     return res.redirect(`/painel?usuario=${encodeURIComponent(usuario)}`);
   }
   res.status(401).send(formulario("Usuário ou senha inválidos."));
